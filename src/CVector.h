@@ -43,19 +43,16 @@ class CVector {
 public:
     
     /**  */
-    CVector() {
-        _start = _used = _end = 0;
-        _max = INITIAL_SIZE;
+    CVector() : _start(0), _end(0), _used(0), _max(INITIAL_SIZE) {
         _v = new Type[_max];
     }
     
     /**  */
-    CVector(const CVector& other) {
+    CVector(const CVector& other) :
+        _start(other._start), _end(other._end),
+        _used(other._used), _max(other._max) {
+            
         _v = new Type[other._max];
-        _start = other._start;
-        _end = other._end;
-        _used = other._used;
-        _max = other._max;
         for (uint i=0; i<_max; i++) {
             _v[i] = other._v[i];
         }        

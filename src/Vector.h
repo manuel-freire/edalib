@@ -41,22 +41,26 @@ class Vector {
 public:
    
     /**  */
-    Vector() {
-        _used = 0;
-        _max = INITIAL_SIZE;
+    Vector() : _used(0), _max(INITIAL_SIZE) {
         _v = new Type[_max];
     }
     
     /**  */
-    Vector(const Vector& other) {
+    Vector(const Vector& other) :
+        _used(other._used), _max(other._max) {
+
         _v = new Type[other._max];
-        _used = other._used;
-        _max = other._max;
-        for (uint i=0; i<other.size(); i++) {
+        for (uint i=0; i<_used; i++) {
             _v[i] = other._v[i];
         }        
     }
-
+    
+    /**  */
+    ~Vector() {
+        delete[] _v;
+        _v = 0;
+    }
+    
     /** */
     const Vector& operator=(const Vector& other) {
         delete _v;
@@ -68,14 +72,6 @@ public:
         }
         return (*this);
     }    
-    
-    /**  */
-    ~Vector() {
-        if (_v) {
-            delete[] _v;
-        }
-        _v = 0;
-    }
 
     /**  */
     uint size() const {

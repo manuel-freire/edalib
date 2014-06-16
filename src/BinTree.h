@@ -52,7 +52,7 @@ struct BinTree {
     BinTree() : _root(0) {}
     
     /**  */
-    BinTree(const BinTree& other) : _root(0) {
+    BinTree(const BinTree& other) {
         _root = copyNode(other._root);
     }
     

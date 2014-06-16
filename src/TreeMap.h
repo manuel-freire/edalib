@@ -42,19 +42,7 @@ class TreeMap {
 public:
 
     /**  */
-    TreeMap() {
-        _entryCount = 0;
-    }
-    
-    /**  */
-    ~TreeMap() {}
-    
-    /** */
-    TreeMap& operator=(const TreeMap& other) {
-        _t = other._t;
-        _entryCount = other._entryCount;
-        return (*this);
-    }
+    TreeMap() : _t(), _entryCount(0) {}
 
     /**  */
     uint size() const {
@@ -159,7 +147,8 @@ public:
     /** */
     const ValueType& at(const KeyType& key) const {        
         Node *p = _t._root;
-        Node *n = _nodeFor(key, p);
+        bool leftChild;
+        Node *n = _nodeFor(key, p, leftChild);
         if ( ! n) {
             throw TreeMapNoSuchElement("at");
         }
@@ -178,9 +167,10 @@ public:
             _entryCount ++;            
         } else {
             Node *p = _t._root;
-            Node *n = _nodeFor(key, p);
+            bool leftChild;
+            Node *n = _nodeFor(key, p, leftChild);
             if ( ! n) {
-                if (p->_elem._key < key) {
+                if (leftChild) {
                     p->_left = _t.createNode(Entry(key, value));
                 } else {
                     p->_right = _t.createNode(Entry(key, value));
@@ -195,13 +185,14 @@ public:
     /** */
     void erase(const KeyType& key) {
         Node *p = _t._root;
-        Node *n = _nodeFor(key, p);
+        bool leftChild; 
+        Node *n = _nodeFor(key, p, leftChild);
         if ( ! n) {
             throw TreeMapNoSuchElement("erase");
         } else {
             if (n == _t._root) {
                 _t._root = _erase(n);
-            } else if (n == p->_left) {
+            } else if (leftChild) {
                 p->_left = _erase(n);
             } else {
                 p->_right = _erase(n);
@@ -266,9 +257,11 @@ private:
      * search to point to the parent of the returned node; or
      * if the node is not found, the parent where the node
      * should be inserted.
+     * @param left set to true if the node is (or should be) to
+     * the left of parent; false if to the right or undecided
      * @return node with the key, 0 if not found
      */
-    static Node *_nodeFor(const KeyType& key, Node*& parent) {
+    static Node *_nodeFor(const KeyType& key, Node*& parent, bool &left) {
         Node *n = parent;
         while (n) {
             const KeyType& nodeKey = n->_elem._key;
@@ -277,8 +270,10 @@ private:
             } else {
                 parent = n;
                 if (nodeKey < key) {
+                    left = true;
                     n = n->_left;
                 } else {
+                    left = false;
                     n = n->_right;
                 }
             }

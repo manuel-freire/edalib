@@ -78,17 +78,13 @@ class HashTable {
 public:
 
     /**  */
-    HashTable() {
-        _entryCount = 0;
-        _size = INITIAL_SIZE;
+    HashTable() : _size(INITIAL_SIZE), _entryCount(0) {
         _bins = new Bin[_size];
     }
     
     /**  */
     ~HashTable() {
-        if (_bins) {
-            delete[] _bins;
-        }
+        delete[] _bins;
         _bins = 0;
     }
     
@@ -278,9 +274,10 @@ private:
         _bins = new Bin[_size];
         _entryCount = 0;
         while (allEntries.size()) {
-            const Entry& entry = allEntries.back();
-            insert(entry._key, entry._value);
-            allEntries.pop_back();
+            const Entry& entry = allEntries.back();            
+            Bin& bin  = _bins[_binFor(entry._key)];
+            allEntries.moveBackTo(bin);
+            _entryCount ++;
         }
     }
 };

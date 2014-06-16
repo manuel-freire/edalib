@@ -217,16 +217,8 @@ public:
     void pop_back() {
         if (_size == 0) {
             throw DoubleListEmpty("pop_back");
-        } else if (_size == 1) {
-            delete _last;
-            _first = _last = 0;
-        } else {
-            Node *n = _last->_prev;
-            delete _last;
-            _last = n;
-            _last->_next = 0;
         }
-        _size --;
+        delete _detachLast();
     }
 
     /**  */
@@ -263,7 +255,11 @@ public:
         }
     }
 
-    /** */
+    /**
+     * Concatenates another list to the end of this one,
+     * emptying the other list in the process.
+     * @param other list to concatenate (will be emptied)
+     */
     void concat(DoubleList& other) {
         if (_size == 0) {
             _first = other._first;
@@ -277,8 +273,43 @@ public:
         other._first = other._last = 0;
         other._size = 0;
     }
-
+    
+    /**
+     * Moves the back (last) element of this list to
+     * another list. The element will no longer belong
+     * to this list.
+     * @param other list to move last element to
+     */
+    void moveBackTo(DoubleList& other) {
+        if (_size == 0) {
+            throw DoubleListEmpty("moveBackTo");
+        }
+        Node *n = _detachLast();
+        if (other._size == 0) {
+            n->_prev = n->_next = 0;
+            other._first = other._last = n;
+        } else {
+            n->_prev = other._last;
+            n->_next = 0;
+            other._last->_next = n;
+            other._last = n;
+        }
+        other._size ++;
+    }
+    
 private:
+
+    Node* _detachLast() {
+        Node *detached = _last;
+        if (_size == 1) {
+            _first = _last = 0;
+        } else {
+            _last = _last->_prev;
+            _last->_next = 0;
+        }
+        _size --;
+        return detached;
+    }
     
     void _clear() {
         while (_first) {
