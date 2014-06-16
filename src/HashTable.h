@@ -139,8 +139,8 @@ public:
         BinIterator _it;
         const Bin* _lastBin;
         
-        Iterator(const HashTable *hm, uint binNumber, const BinIterator &it)
-            : _hm(hm), _bin(hm->_bins + binNumber), _it(it) {
+        Iterator(const HashTable *hm, Bin *bin, const BinIterator &it)
+            : _hm(hm), _bin(bin), _it(it) {
                 
             _lastBin = _hm->_bins + (_hm->_size - 1);
             _advance();
@@ -156,21 +156,20 @@ public:
     
     /** */
     const Iterator find(const KeyType& key) const {
-        uint binNumber = _binFor(key);
-        const Bin& bin = _bins[binNumber];
+        Bin& bin = _bins[_binFor(key)];
         const BinIterator& it = _findIn(bin, key);
         return (it == bin.end()) ? end() 
-            : Iterator(this, binNumber, it);
+            : Iterator(this, &bin, it);
     }
     
     /** */
     Iterator begin() const {
-        return Iterator(this, 0, _bins[0].begin());
+        return Iterator(this, _bins+0, _bins[0].begin());
     }
     
     /** */
     Iterator end() const {
-        return Iterator(this, _size-1, _bins[_size-1].end());
+        return Iterator(this, _bins+(_size-1), _bins[_size-1].end());
     }
     
     /** */
