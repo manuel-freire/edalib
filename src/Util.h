@@ -20,6 +20,7 @@
 #include <iosfwd>
 
 typedef unsigned int uint;
+typedef unsigned long ulong;
 
 /**
  * Class that all exception types inherit from

@@ -15,7 +15,7 @@
 #ifndef __MAP_H
 #define __MAP_H
 
-// default implementation
+#include "HashTable.h"
 #include "TreeMap.h"
 
 /**
@@ -28,12 +28,16 @@
  * 
  * @author mfreire
  */
-template <class KeyType, class ValueType, 
-    class Container = TreeMap<KeyType, ValueType> >
-class Map {
+template <class KeyType, class ValueType, class Container>
+class BaseMap {
     
-    /** */
-    Container _m;
+    /**
+     * Internal associative container.
+     * Must support iteration (begin, end, find), lookup by key
+     * (find, at, contains), removal by key (remove), insertion by key(insert),
+     * and size
+     */
+    Container _m; 
     
 public:
 
@@ -79,6 +83,17 @@ public:
     uint size() const {
         return _m.size();
     }
+};
+
+/**
+ * Pre-built maps using a HashTable and a TreeMap as backup containers
+ */
+template <class KeyType, class ValueType>
+struct Map {
+    /// Map::H is a HashTable-backed set, and is not ordered
+    typedef BaseMap<KeyType, ValueType, HashTable<KeyType, ValueType> > H;
+    /// Map::M is a TreeMap-backed set, and is always ordered
+    typedef BaseMap<KeyType, ValueType, TreeMap<KeyType, ValueType> > T;    
 };
 
 #endif // __MAP_H
