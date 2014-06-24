@@ -197,7 +197,7 @@ void testTreeMap() {
 
 void testMap() {
     cout << "===========\nTEST_MAP\n===========\n";    
-    Map<int, int> m;
+    Map<int, int>::H m;
     int i=0;
     for (int j=0; j<10; j++, i++) {
         m.insert(i, -i);
@@ -224,7 +224,7 @@ void testMap() {
 
 void testSet() {
     cout << "===========\nTEST_SET\n===========\n";    
-    Set<int> s;
+    Set<int>::T s;
     int i=0;
     for (int j=0; j<10; j++, i++) {
         s.insert(i);
@@ -278,7 +278,7 @@ void testHashVsTreeMap() {
     {
         // test trees
         start = clock();
-        Map<int, int, TreeMap<int, int> > m;
+        Map<int, int>::T m;
         for (int i=0; i<n; i++) {
             m.insert(v.at(i), i);
         }
@@ -306,7 +306,7 @@ void testHashVsTreeMap() {
     {
         // test hashes
         start = clock();
-        Map<int, int, HashTable<int, int> > m;
+        Map<int, int>::H m;
         for (int i=0; i<n; i++) {
             m.insert(v.at(i), i);
         }
@@ -348,6 +348,26 @@ void testHistogram() {
     m.histogram();    
 }
 
+void testTreeDiagnostic() {
+    cout << "===========\nTEST_TREE_STATS\n===========\n";    
+    int n = 100000;   
+    Vector<int> v;    
+    for (int i=0; i<n; i++) {
+        v.push_back(i);
+    }
+    v.shuffle();
+    TreeMap<int, int> m;
+    for (int i=0; i<n; i++) {
+        m.insert(v.at(i), i);
+    }
+    m.diagnose();    
+    for (int i=n/2; i<n; i++) {
+        m.erase(v.at(i));
+    }
+    m.diagnose();    
+}
+
+
 int main() {
     testCVector();    
     testVectorStack();
@@ -363,6 +383,6 @@ int main() {
     testMap();    
     testHashVsTreeMap();
     testHistogram();
-    
+    testTreeDiagnostic();
     return 0;
 }

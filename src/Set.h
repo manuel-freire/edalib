@@ -15,8 +15,8 @@
 #ifndef __SET_H
 #define __SET_H
 
-// default implementation
 #include "HashTable.h"
+#include "TreeMap.h"
 
 struct EmptyClass {};
 /// std::ostream output
@@ -32,11 +32,15 @@ std::ostream& operator<<(std::ostream& out, const EmptyClass &e) {
  * 
  * @author mfreire
  */
-template <class KeyType, 
-    class Container = HashTable<KeyType, EmptyClass> >
-class Set {
+template <class KeyType, class Container>
+class BaseSet {
     
-    /** */
+    /**
+     * Internal associative container.
+     * Must support iteration (begin, end, find), lookup by key
+     * (find and contains, but does not need 'at'), removal by key (remove), 
+     * insertion by key(insert), and size
+     */
     Container _m;
 
 public:
@@ -73,6 +77,17 @@ public:
     uint size() const {
         return _m.size();
     }
+};
+
+/**
+ * Pre-built sets using a HashTable and a TreeMap as backup containers
+ */
+template <class KeyType>
+struct Set {
+    /// Set::H is a HashTable-backed set, and is not ordered
+    typedef BaseSet<KeyType, HashTable<KeyType, EmptyClass> > H;
+    /// Set::M is a TreeMap-backed set, and is always ordered
+    typedef BaseSet<KeyType, TreeMap<KeyType, EmptyClass> > T;    
 };
 
 #endif // __SET_H

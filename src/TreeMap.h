@@ -206,8 +206,38 @@ public:
         _t.print(_t._root, out);
     } 
     
+    /** */
+    void diagnose(std::ostream &out=std::cout) {
+        uint depth = 0, max = 0;
+        ulong totalDepth = 0;
+        _diagnose(_t._root, depth, max, totalDepth);
+        float avg = ( 1.0 / _entryCount) *  totalDepth;     
+        uint roundedAvg = (int)avg;
+        ulong maxForDepth = 0;
+        for (uint i=0; i<roundedAvg; i++) {
+            maxForDepth += (1<<i);
+        }
+        out << "total of " << _entryCount 
+             << " nodes; avg path length is " << avg << " max is " << max
+             << " density is " << (100.0 * _entryCount / (float)maxForDepth) << "%" 
+             << std::endl;
+    } 
+    
 private:
 
+    /**
+     * Calculates average path-length stats for the tree
+     */
+    static void _diagnose(Node *n, uint depth, uint &max, ulong &total) {
+        if (n) {
+            depth ++;
+            total += depth;
+            max = (depth > max) ? depth : max;
+            _diagnose(n->_left, depth, max, total);
+            _diagnose(n->_right, depth, max, total);
+        }
+    }
+    
     /**
      * Erases a node, promoting and reordering children as needed
      * so as to return a tree that is ordered, with only the
