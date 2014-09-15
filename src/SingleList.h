@@ -90,7 +90,9 @@ public:
             return _current->_elem;
         }
         
-        Type& elem() { NON_CONST_VARIANT(Type, Iterator, elem()); }
+        Type& elem() { 
+            return _current->_elem;            
+        }
         
         void set(const Type& elem) {
             _current->_elem = elem;
@@ -113,6 +115,16 @@ public:
     
     /** */
     const Iterator find(const Type& e) const {
+        for (Iterator it(_first); it != end(); it.next()) {
+            if (e == it.elem()) {
+                return it;
+            }
+        }
+        return end();
+    }
+    
+    /** */
+    Iterator find(const Type& e) {
         for (Iterator it(_first); it != end(); it.next()) {
             if (e == it.elem()) {
                 return it;
@@ -153,7 +165,10 @@ public:
 
     /**  */
     Type& back() {
-        NON_CONST_VARIANT(Type,SingleList,back());
+        if (_size == 0) {
+            throw SingleListEmpty("back");
+        }
+        return _last->_elem;       
     }
 
     /**  */
@@ -177,7 +192,10 @@ public:
     
     /**  */
     Type& front() {
-        NON_CONST_VARIANT(Type,SingleList,front());
+        if (_size == 0) {
+            throw SingleListEmpty("front");
+        }
+        return _first->_elem;        
     }
     
     /**  */

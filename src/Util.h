@@ -51,13 +51,6 @@ public: \
     ExceptionSubclass(const std::string &msg) : AbstractException(msg) {} \
 };
 
-/// Macro to constify an operation.
-///     given an operation like const Something& MyClass::myOperation(...),
-///     use to provide the implementation of a non-const variant as:
-///        NON_CONST_VARIANT(Something,Myclass,myOperation(...));
-#define NON_CONST_VARIANT(Return,Class,Call) \
-return const_cast<Return&>(static_cast<const Class*>(this)->Call)
-
 /**
  * Copies all elements between first and last at the back of a given container
  */

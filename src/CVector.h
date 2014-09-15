@@ -86,31 +86,36 @@ public:
     class Iterator {
     public:
         void next() {
-            _pos = _cv->_inc(_pos);
+            _adjPos = _cv->_inc(_adjPos);
+            if (_adjPos >= _cv->_end) {
+                throw CVectorInvalidIndex("next");
+            }
         }
         
         const Type& elem() const {
-            return _cv->_v[_pos];
+            return _cv->_v[_adjPos];
         }
         
-        Type& elem() { NON_CONST_VARIANT(Type, Iterator, elem()); }
+        Type& elem() { 
+            return _cv->_v[_adjPos];             
+        }
 
         bool operator==(const Iterator &other) const {
-            return _pos == other._pos;
+            return _adjPos == other._adjPos;
         }
         
         bool operator!=(const Iterator &other) const {
-            return _pos != other._pos;
+            return _adjPos != other._adjPos;
         }
     protected:
         friend class CVector;
         
         const CVector* _cv;
         
-        uint _pos;
+        uint _adjPos;
         
-        Iterator(const CVector *cv, uint pos)
-            : _cv(cv), _pos(pos) {}
+        Iterator(const CVector *cv, uint adjPos)
+            : _cv(cv), _adjPos(adjPos) {}
     };    
     
     /** */
@@ -143,7 +148,10 @@ public:
 
     /** */
     Type& at(uint pos) {
-        NON_CONST_VARIANT(Type,CVector,at(pos));
+        if (pos < 0 || pos >= _used) {
+            throw CVectorInvalidIndex("at");
+        }
+        return _v[_adjust(pos)];        
     }
 
     /** */
@@ -166,7 +174,10 @@ public:
 
     /** */
     Type& back() {
-        NON_CONST_VARIANT(Type,CVector,back());
+        if (_used == 0) {
+            throw CVectorInvalidIndex("back");
+        }
+        return _v[_dec(_end)];        
     }
 
     /**  */
@@ -198,7 +209,10 @@ public:
 
     /**  */
     Type& front() {
-        NON_CONST_VARIANT(Type,CVector,front());
+        if (_used == 0) {
+            throw CVectorInvalidIndex("front");
+        }
+        return _v[_start];
     }    
 
     /**  */

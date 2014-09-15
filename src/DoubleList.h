@@ -95,7 +95,9 @@ public:
             return _current->_elem;
         }
         
-        Type& elem() { NON_CONST_VARIANT(Type, Iterator, elem()); }
+        Type& elem() { 
+            return _current->_elem;            
+        }
         
         void set(const Type& elem) {
             _current->_elem = elem;
@@ -210,7 +212,10 @@ public:
 
     /**  */
     Type& back() {
-        NON_CONST_VARIANT(Type,DoubleList,back());
+        if (_size == 0) {
+            throw DoubleListEmpty("back");
+        }
+        return _last->_elem;        
     }
 
     /**  */
@@ -243,7 +248,10 @@ public:
     
     /**  */
     Type& front() {
-        NON_CONST_VARIANT(Type,DoubleList,front());
+        if (_size == 0) {
+            throw DoubleListEmpty("front");
+        }
+        return _first->_elem;        
     }
     
     /**  */

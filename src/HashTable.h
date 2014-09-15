@@ -119,7 +119,11 @@ public:
         const ValueType& value() const {
             return _it.elem()._value;
         }
-        
+
+        ValueType& value() {
+            return _it.elem()._value;
+        }
+                
         const KeyType& key() const {
             return _it.elem()._key;
         }
@@ -140,8 +144,7 @@ public:
         const Bin* _lastBin;
         
         Iterator(const HashTable *hm, Bin *bin, const BinIterator &it)
-            : _hm(hm), _bin(bin), _it(it) {
-                
+                : _hm(hm), _bin(bin), _it(it) {                
             _lastBin = _hm->_bins + (_hm->_size - 1);
             _advance();
         }
@@ -161,6 +164,14 @@ public:
         return (it == bin.end()) ? end() 
             : Iterator(this, &bin, it);
     }
+
+    /** */
+    Iterator find(const KeyType& key) {
+        Bin& bin = _bins[_binFor(key)];
+        const BinIterator& it = _findIn(bin, key);
+        return (it == bin.end()) ? end() 
+            : Iterator(this, &bin, it);
+    }    
     
     /** */
     Iterator begin() const {
@@ -184,7 +195,12 @@ public:
     
     /** */
     ValueType& at(const KeyType& key) {
-        NON_CONST_VARIANT(ValueType,HashTable,at(key));
+        Bin& bin  = _bins[_binFor(key)];
+        BinIterator it = _findIn(bin, key);
+        if (it == bin.end()) {
+            throw HashTableNoSuchElement("at");
+        }
+        return it.elem()._value;        
     }
     
     /** */

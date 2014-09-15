@@ -72,6 +72,10 @@ public:
             return _current->_elem._value;
         }
         
+        ValueType& value() {
+            return _current->_elem._value;
+        }
+        
         const KeyType& key() const {
             return _current->_elem._key;
         }
@@ -135,6 +139,11 @@ public:
     }
     
     /** */
+    Iterator find(const KeyType& key) {
+        return Iterator(_t._root, key);
+    }
+    
+    /** */
     Iterator begin() const {
         return Iterator(_t._root);
     }
@@ -157,7 +166,13 @@ public:
     
     /** */
     ValueType& at(const KeyType& key) {
-        NON_CONST_VARIANT(ValueType,TreeMap,at(key));
+        Node *p = _t._root;
+        bool leftChild;
+        Node *n = _nodeFor(key, p, leftChild);
+        if ( ! n) {
+            throw TreeMapNoSuchElement("at");
+        }
+        return n->_elem._value;        
     }
     
     /** */

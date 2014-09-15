@@ -82,13 +82,18 @@ public:
     public:
         void next() {
             _pos ++;
+            if (_pos >= _dv->_used) {
+                throw VectorInvalidIndex("next");
+            }
         }
         
         const Type& elem() const {
-            return _dv->at(_pos);
+            return _dv->_v[_pos];
         }
         
-        Type& elem() { NON_CONST_VARIANT(Type, Iterator, elem()); }
+        Type& elem() { 
+            return _dv->_v[_pos];
+        }
 
         bool operator==(const Iterator &other) const {
             return _pos == other._pos;
@@ -145,10 +150,13 @@ public:
         }
         return _v[pos];
     }
-
+    
     /** */
     Type& at(uint pos) {
-        NON_CONST_VARIANT(Type,Vector,at(pos));
+        if (pos < 0 || pos >= _used) {
+            throw VectorInvalidIndex("at");
+        }
+        return _v[pos];
     }
     
     /** */
@@ -166,7 +174,7 @@ public:
 
     /** */
     Type& back() {
-        NON_CONST_VARIANT(Type,Vector,back());
+        return at(_used - 1);
     }
 
     /**  */
@@ -191,12 +199,12 @@ public:
     
     /**  */
     const Type& front() const {
-        (const Type &)at(0);
+        return (const Type &)at(0);
     }
     
     /**  */
     Type& front() {
-        NON_CONST_VARIANT(Type,Vector,front());
+        return at(0);
     }    
 
     /**  */
