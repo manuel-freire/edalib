@@ -12,8 +12,8 @@
  *    visit opensource.org/licenses/BSD-3-Clause)
  */
 
-#ifndef __HASHTABLE_H
-#define __HASHTABLE_H
+#ifndef EDA_HASHTABLE_H
+#define EDA_HASHTABLE_H
 
 #include "MapEntry.h"
 #include "Util.h"
@@ -281,4 +281,4 @@ private:
     }
 };
 
-#endif // __HASHTABLE_H
+#endif // EDA_HASHTABLE_H

@@ -12,8 +12,8 @@
  *     visit opensource.org/licenses/BSD-3-Clause)
  */
 
-#ifndef __MAP_H
-#define __MAP_H
+#ifndef EDA_MAP_H
+#define EDA_MAP_H
 
 #include "HashTable.h"
 #include "TreeMap.h"
@@ -96,4 +96,4 @@ struct Map {
     typedef BaseMap<KeyType, ValueType, TreeMap<KeyType, ValueType> > T;    
 };
 
-#endif // __MAP_H
+#endif // EDA_MAP_H

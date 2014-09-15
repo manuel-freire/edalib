@@ -12,8 +12,8 @@
  *    visit opensource.org/licenses/BSD-3-Clause)
  */
 
-#ifndef __SINGLE_LIST_H
-#define __SINGLE_LIST_H
+#ifndef EDA_SINGLE_LIST_H
+#define EDA_SINGLE_LIST_H
 
 #include "Util.h"
 
@@ -208,4 +208,4 @@ private:
     }
 };
 
-#endif // __SINGLE_LIST_H
+#endif // EDA_SINGLE_LIST_H

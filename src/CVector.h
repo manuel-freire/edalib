@@ -12,8 +12,8 @@
  *    visit opensource.org/licenses/BSD-3-Clause)
  */
 
-#ifndef __CVECTOR_H
-#define __CVECTOR_H
+#ifndef EDA_CVECTOR_H
+#define EDA_CVECTOR_H
 
 #include <iomanip>
 
@@ -263,4 +263,4 @@ private:
     }
 };
 
-#endif // __CVECTOR_H
+#endif // EDA_CVECTOR_H

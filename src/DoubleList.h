@@ -12,8 +12,8 @@
  *    visit opensource.org/licenses/BSD-3-Clause)
  */
 
-#ifndef __DOUBLE_LIST_H
-#define __DOUBLE_LIST_H
+#ifndef EDA_DOUBLE_LIST_H
+#define EDA_DOUBLE_LIST_H
 
 #include "Util.h"
 
@@ -322,4 +322,4 @@ private:
     }
 };
 
-#endif // __DOUBLE_LIST_H
+#endif // EDA_DOUBLE_LIST_H

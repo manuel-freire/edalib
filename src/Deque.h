@@ -12,8 +12,8 @@
  *     visit opensource.org/licenses/BSD-3-Clause)
  */
 
-#ifndef __DEQUE_H
-#define __DEQUE_H
+#ifndef EDA_DEQUE_H
+#define EDA_DEQUE_H
 
 // default implementation
 #include "DoubleList.h"
@@ -66,4 +66,4 @@ public:
     }
 };
 
-#endif // __DEQUE_H
+#endif // EDA_DEQUE_H

@@ -12,8 +12,8 @@
  *    visit opensource.org/licenses/BSD-3-Clause)
  */
 
-#ifndef __UTIL_H
-#define __UTIL_H
+#ifndef EDA_UTIL_H
+#define EDA_UTIL_H
 
 #include <string>
 #include <iostream>
@@ -98,4 +98,4 @@ void print(std::string message, const Container &c, std::ostream &out = std::cou
     out << std::endl;
 }
            
-#endif // __UTIL_H
+#endif // EDA_UTIL_H

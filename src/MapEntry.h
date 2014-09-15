@@ -12,8 +12,8 @@
  *    visit opensource.org/licenses/BSD-3-Clause)
  */
 
-#ifndef __MAP_ENTRY_H
-#define __MAP_ENTRY_H
+#ifndef EDA_MAP_ENTRY_H
+#define EDA_MAP_ENTRY_H
 
 #include <iostream>
 
@@ -44,4 +44,4 @@ std::ostream& operator<<(
     return out << e._key << ": " << e._value;
 }
 
-#endif // __MAP_ENTRY
+#endif // EDA_MAP_ENTRY

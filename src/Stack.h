@@ -12,8 +12,8 @@
  *     visit opensource.org/licenses/BSD-3-Clause)
  */
 
-#ifndef __STACK_H
-#define __STACK_H
+#ifndef EDA_STACK_H
+#define EDA_STACK_H
 
 // default implementation
 #include "Vector.h"
@@ -53,4 +53,4 @@ public:
     }
 };
 
-#endif // __STACK_H
+#endif // EDA_STACK_H

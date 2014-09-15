@@ -12,8 +12,8 @@
  *    visit opensource.org/licenses/BSD-3-Clause)
  */
 
-#ifndef __VECTOR_H
-#define __VECTOR_H
+#ifndef EDA_VECTOR_H
+#define EDA_VECTOR_H
 
 // to access std::sort and std::random_shuffle
 #include <algorithm>
@@ -224,4 +224,4 @@ private:
     }    
 };
 
-#endif // __VECTOR_H
+#endif // EDA_VECTOR_H

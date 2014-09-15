@@ -12,8 +12,8 @@
  *    visit opensource.org/licenses/BSD-3-Clause)
  */
 
-#ifndef __TREEMAP_H
-#define __TREEMAP_H
+#ifndef EDA_TREEMAP_H
+#define EDA_TREEMAP_H
 
 #include "MapEntry.h"
 #include "Util.h"
@@ -312,4 +312,4 @@ private:
     }    
 };
 
-#endif // __TREEMAP_H
+#endif // EDA_TREEMAP_H

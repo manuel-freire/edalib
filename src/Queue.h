@@ -12,8 +12,8 @@
  *     visit opensource.org/licenses/BSD-3-Clause)
  */
 
-#ifndef __QUEUE_H
-#define __QUEUE_H
+#ifndef EDA_QUEUE_H
+#define EDA_QUEUE_H
 
 // default implementation
 #include "SingleList.h"
@@ -63,4 +63,4 @@ public:
     }
 };
 
-#endif // __QUEUE_H
+#endif // EDA_QUEUE_H

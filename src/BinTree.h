@@ -12,8 +12,8 @@
  *    visit opensource.org/licenses/BSD-3-Clause)
  */
 
-#ifndef __BIN_TREE_H
-#define __BIN_TREE_H
+#ifndef EDA_BIN_TREE_H
+#define EDA_BIN_TREE_H
 
 #include <iomanip>
 
@@ -184,4 +184,4 @@ private:
     }
 };
 
-#endif // __BIN_TREE_H
+#endif // EDA_BIN_TREE_H

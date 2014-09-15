@@ -12,8 +12,8 @@
  *     visit opensource.org/licenses/BSD-3-Clause)
  */
 
-#ifndef __SET_H
-#define __SET_H
+#ifndef EDA_SET_H
+#define EDA_SET_H
 
 #include "HashTable.h"
 #include "TreeMap.h"
@@ -90,4 +90,4 @@ struct Set {
     typedef BaseSet<KeyType, TreeMap<KeyType, EmptyClass> > T;    
 };
 
-#endif // __SET_H
+#endif // EDA_SET_H
