@@ -87,9 +87,6 @@ public:
     public:
         void next() {
             _adjPos = _cv->_inc(_adjPos);
-            if (_adjPos >= _cv->_end) {
-                throw CVectorInvalidIndex("next");
-            }
         }
         
         const Type& elem() const {

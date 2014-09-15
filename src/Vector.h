@@ -82,9 +82,6 @@ public:
     public:
         void next() {
             _pos ++;
-            if (_pos >= _dv->_used) {
-                throw VectorInvalidIndex("next");
-            }
         }
         
         const Type& elem() const {

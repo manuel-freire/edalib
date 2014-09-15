@@ -46,11 +46,6 @@ public:
     }
 
     /**  */
-    void pop_front() {
-        _v.pop_front();
-    }    
-
-    /**  */
     const Type& front() const {
         return _v.front();
     }
