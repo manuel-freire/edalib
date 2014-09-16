@@ -30,9 +30,9 @@ void test_pop_back(C &c, const std::vector<T> &contents) {
     it("can be popped via pop_back(), while keeping back() in sync", [&](){
         for (auto it=contents.rbegin(); it!=contents.rend(); it++) {
             uint sizeBefore = c.size();
+            AssertThat(c.back(), Equals(*it));            
             c.pop_back();
             AssertThat(c.size(), Equals(sizeBefore - 1));
-            AssertThat(c.back(), Equals(*it));            
         }
     });
 }
@@ -65,18 +65,6 @@ void test_grow(C &c, const T &t, uint size) {
     });    
 }
 
-template<typename C>
-void test_shrink(C &c, uint size) {
-    it("shrinks back fine", [&](){
-        int pops = 0;
-        while(c.size()) {
-            c.pop_back();
-            pops ++;
-        }
-        AssertThat(pops, Equals(size));
-    });
-}
-
 template<typename C, typename T>
 void test_linear(C &c, const std::vector<T> &contents) {
     it("is empty", [&](){
@@ -93,20 +81,15 @@ void test_linear(C &c, const std::vector<T> &contents) {
         AssertThat(c.begin().elem(), Equals(contents[0]));
     });
     test_iterator(c, contents);
-    test_pop_back(c, contents);
-    test_grow(c, 0, 100000);
     it("fails when we attempt to retrieve beyond last", [&](){
         AssertThrows(AbstractException, c.end().elem());
     });
-    test_shrink(c, 100000);
-}    
+    test_pop_back(c, contents);
+    test_grow(c, 0, 100000);
+}
 
 go_bandit([](){
-    describe("vector:", [](){
-        Vector<int> v;        
-    });    
-    
-    describe("linear:", [](){
+    describe("linear (via push_back, pop_back, back, iterators):", [](){
         std::vector<int> o = {0, 2, 4, 6, 8, 10, 12, 14, 16, 18};      
         describe("vector:", [&](){
             Vector<int> v;

@@ -92,14 +92,23 @@ public:
         }
 
         const Type& elem() const {
+            if ( ! _current) {
+                throw DoubleListOutOfBounds("elem");
+            }
             return _current->_elem;
         }
         
         Type& elem() { 
+            if ( ! _current) {
+                throw DoubleListOutOfBounds("elem");
+            }
             return _current->_elem;            
         }
         
         void set(const Type& elem) {
+            if ( ! _current) {
+                throw DoubleListOutOfBounds("set");
+            }
             _current->_elem = elem;
         }
         

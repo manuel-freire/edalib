@@ -257,7 +257,7 @@ private:
         if (_start < _end) {
             return _start <= i && i < _end;
         } else if (_end == _start) {
-            return true;
+            return _used; // either empty or full
         } else { // _start > _end
             return (_start <= i && i < _max) || (0 <= i && i < _end);
         }
