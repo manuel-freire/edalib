@@ -44,7 +44,7 @@ All previous files ```#include``` [Util.h](https://github.com/manuel-freire/edal
 ##### Other files
 
 * [test/test.cpp](https://github.com/manuel-freire/edalib/blob/master/test/test.cpp): a miscelaneous set of tests, which is neither exhaustive nor particularly organized. Mostly for testing during development.
-* LICENSE: the BSD 3-clause license, under which *edalib* is licensed.
+* [LICENSE](https://github.com/manuel-freire/edalib/blob/master/LICENSE): the BSD 3-clause license, under which *edalib* is licensed.
 * [test/unit.cpp](https://github.com/manuel-freire/edalib/blob/master/test/unit.cpp): a collection of unit tests, using the [bandit](https://github.com/joakimkarlsson/bandit) library.
-* doxyfile: to generate documentation. Install doxygen and launch using ```doxygen doxyfile``` from the root of the project.
+* [doxyfile](https://github.com/manuel-freire/edalib/blob/master/doxyfile): to generate documentation. Install doxygen and launch using ```doxygen doxyfile``` from the root of the project.
 * [SConstruct](https://github.com/manuel-freire/edalib/blob/master/SConstruct): to build the tests in a cross-platform manner. Install SCons and launch via ```scons``` from the root of the project. Use ```scons -h``` to choose suitable targets; for example, ```scons run_unit``` will compile and run unit tests, and ```scons doc``` will rebuild the documentation.
