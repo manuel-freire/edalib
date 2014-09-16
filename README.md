@@ -43,8 +43,8 @@ All previous files ```#include``` [Util.h](https://github.com/manuel-freire/edal
 
 ##### Other files
 
-* [test/test.cpp](https://github.com/manuel-freire/edalib/blob/master/test/test.cpp): a set of unit tests, which is neither exhaustive nor particularly organized. Mostly for testing during development.
-* `.travis.yml`: TravisCI test enviroment config file. Runs the above tests when pushing to github, both compiling with Clang and GCC.
+* [test/test.cpp](https://github.com/manuel-freire/edalib/blob/master/test/test.cpp): a miscelaneous set of tests, which is neither exhaustive nor particularly organized. Mostly for testing during development.
 * LICENSE: the BSD 3-clause license, under which *edalib* is licensed.
+* [test/unit.cpp](https://github.com/manuel-freire/edalib/blob/master/test/unit.cpp): a collection of unit tests, using the [bandit](https://github.com/joakimkarlsson/bandit) library.
 * doxyfile: to generate documentation. Install doxygen and launch using ```doxygen doxyfile``` from the root of the project.
-* SConstruct: to build the tests in a cross-platform manner. Install SCons and launch via ```scons``` from the root of the project. Use ```scons -c``` to clean compilation products.
+* SConstruct: to build the tests in a cross-platform manner. Install SCons and launch via ```scons``` from the root of the project. Use ```scons -h``` to choose suitable targets; for example, ```scons run_unit``` will compile and run unit tests, and ```scons doc``` will rebuild the documentation.
