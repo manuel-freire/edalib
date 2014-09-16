@@ -90,12 +90,11 @@ public:
         }
         
         const Type& elem() const {
+            if ( ! _cv->_inside(_adjPos)) {
+                throw CVectorInvalidIndex("elem");                
+            }            
             return _cv->_v[_adjPos];
-        }
-        
-        Type& elem() { 
-            return _cv->_v[_adjPos];             
-        }
+        }        
 
         bool operator==(const Iterator &other) const {
             return _adjPos == other._adjPos;
@@ -113,25 +112,19 @@ public:
         
         Iterator(const CVector *cv, uint adjPos)
             : _cv(cv), _adjPos(adjPos) {}
-    };    
-    
-    /** */
-    const Iterator find(const Type& e) const {
-        for (uint i=_start, j=0; i!=_end; i=_inc(i)) {
-            if (e == _v[i]) {
-                return Iterator(this, i);
-            }
-        }
-        return end();
-    }
-    
-    /** */
+    };
+
+    /**
+     * @return a mutable iterator that points to the first element. This operation
+     * is _not_ const to allow iterating of const objects, although you should
+     * avoid modifying such objects.
+     */
     Iterator begin() const {
         return Iterator(this, _start);
     }
     
     /** */
-    Iterator end() const {
+    const Iterator end() const {
         return Iterator(this, _end);
     }
     
@@ -225,7 +218,6 @@ public:
     void print(std::ostream &out=std::cout) {
         for (uint i=0; i<_max; i++) {
             out << std::setw(2) << i << ": ";
-            // NOTE: _inside() is O(n), which makes the metod O(n^2)
             if (_inside(i)) {
                 out << _v[i];
             } else {
@@ -262,10 +254,13 @@ private:
     }
 
     bool _inside(uint i) const {
-        for (uint j=_start; j!=_end; j=_inc(j)) {
-            if (j == i) return true;
+        if (_start < _end) {
+            return _start <= i && i < _end;
+        } else if (_end == _start) {
+            return true;
+        } else { // _start > _end
+            return (_start <= i && i < _max) || (0 <= i && i < _end);
         }
-        return false;
     }
     
     uint _adjust(uint external) const {

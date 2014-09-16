@@ -85,12 +85,11 @@ public:
         }
         
         const Type& elem() const {
+            if (_pos < 0 || _pos >= _dv->_used) {
+                throw VectorInvalidIndex("elem");                
+            }
             return _dv->_v[_pos];
-        }
-        
-        Type& elem() { 
-            return _dv->_v[_pos];
-        }
+        }        
 
         bool operator==(const Iterator &other) const {
             return _pos == other._pos;
@@ -110,23 +109,17 @@ public:
             : _dv(dv), _pos(pos) {}
     };    
     
-    /** */
-    const Iterator find(const Type& e) const {
-        for (uint i=0; i<_used; i++) {
-            if (e == _v[i]) {
-                return Iterator(this, i);
-            }
-        }
-        return end();
-    }
-    
-    /** */
+    /**
+     * @return a mutable iterator that points to the first element. This operation
+     * is _not_ const to allow iterating of const objects, although you should
+     * avoid modifying such objects.
+     */
     Iterator begin() const {
         return Iterator(this, 0);
     }
     
     /** */
-    Iterator end() const {
+    const Iterator end() const {
         return Iterator(this, _used);
     }
     
